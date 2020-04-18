@@ -42,4 +42,8 @@ def cont():
         return render_template("index.html",var1=var1)
     else:
         return render_template("index.html")
+@app.route('/admins')
+def admin():
+    usersinfo = model.query.all()
+    return render_template("admins.html",admin = usersinfo)
  

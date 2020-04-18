@@ -7,7 +7,7 @@
         
     </head>
     <body style="background-image: url_('ll.jpeg');">
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
         <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -27,19 +27,17 @@
         {% if var1 %}
         <div class ="container" style="text-align: center;">
         <div class="alert-alert-success.alert-dismissibe">
-            <a class="close".data-dismiss="alert".aria-label="close">&times;</a>
         {{var1}}
         </div>
         </div>
-        {%endif%}
+        {% endif %}
         {% if var %}
         <div class ="container" style="text-align: center;">
         <div class="alert-alert-danger.alert-dismissibe">
-            <a class="close".data-dismiss="alert".aria-label="close">&times;</a>
         {{var}}
         </div>
         </div>
-        {%endif%}
+        {% endif %}
     </div>
    </body>
 </html>
