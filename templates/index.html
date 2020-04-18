@@ -24,6 +24,22 @@
             <input type="password" id="pwd" name="pwd"><br>
             <button type="submit" class="btn btn-primary mb-2">Sign Up!!</button>
         </form>
+        {% if var1 %}
+        <div class ="container" style="text-align: center;">
+        <div class="alert-alert-success.alert-dismissibe">
+            <a class="close".data-dismiss="alert".aria-label="close">&times;</a>
+        {{var1}}
+        </div>
+        </div>
+        {%endif%}
+        {% if var %}
+        <div class ="container" style="text-align: center;">
+        <div class="alert-alert-danger.alert-dismissibe">
+            <a class="close".data-dismiss="alert".aria-label="close">&times;</a>
+        {{var}}
+        </div>
+        </div>
+        {%endif%}
     </div>
    </body>
 </html>
