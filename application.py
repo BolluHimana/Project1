@@ -1,10 +1,14 @@
 import os
 
-from model import *
-from flask import Flask, session,render_template, request,redirect
+
+from flask import Flask, session,request,render_template,redirect
 from flask_session import Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,desc
 from sqlalchemy.orm import scoped_session, sessionmaker
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+from model import *
 
 app = Flask(__name__)
 # Check for environment variable
@@ -25,7 +29,7 @@ Session = scoped_session(sessionmaker(bind=engine))
 session=Session()
 @app.route("/")
 def index():
-    return "project 1:TODO"
+    return render_template("index.html")
 @app.route("/Register", methods = ['POST', 'GET'])
 def cont():
     db.create_all()
@@ -46,4 +50,33 @@ def cont():
 def admin():
     usersinfo = model.query.all()
     return render_template("admins.html",admin = usersinfo)
- 
+@app.route('/auth', methods=['POST'])
+def log():
+    LogData = model.query.filter_by(mailID= request.form['mailID']).first()
+    if LogData is not None:
+        if request.form['pwd'] == LogData.pwd:
+            return redirect('/home')
+        else:
+            var1 = "wrong Credentials"
+            return render_template('index.html', var= var1)
+    else:
+        var1 = "Error: You are not a registered. Please first register to login"
+        return render_template("index.html",var = var1)
+
+@app.route('/home')
+def home():
+    try:
+        return render_template("login.html")
+    except:
+        var1 = "You must log in to view the homePage"
+        return render_template("index.html",var=var1)
+
+@app.route('/logout')
+def logout():
+    try:
+        user_data = session['mailID']
+        var1= "Logged-Out"
+        return render_template("index.html",var=var1)
+    except:
+        var1 = "You must first log in to logout"
+        return render_template("index.html",var=var1)
