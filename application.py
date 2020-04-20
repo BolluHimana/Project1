@@ -25,8 +25,8 @@ db.init_app(app)
 
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
-Session = scoped_session(sessionmaker(bind=engine))
-session=Session()
+#Session = scoped_session(sessionmaker(bind=engine))
+#session=Session()
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -55,6 +55,7 @@ def log():
     LogData = model.query.filter_by(mailID= request.form['mailID']).first()
     if LogData is not None:
         if request.form['pwd'] == LogData.pwd:
+            session['mailID'] = request.form['mailID']
             return redirect('/home')
         else:
             var1 = "wrong Credentials"
@@ -66,6 +67,7 @@ def log():
 @app.route('/home')
 def home():
     try:
+        LogData = session['mailID']
         return render_template("login.html")
     except:
         var1 = "You must log in to view the homePage"
@@ -75,6 +77,7 @@ def home():
 def logout():
     try:
         user_data = session['mailID']
+        session.clear()
         var1= "Logged-Out"
         return render_template("index.html",var=var1)
     except:
