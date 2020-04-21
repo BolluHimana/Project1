@@ -29,7 +29,12 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 #session=Session()
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if session.get("mailID") is None:
+        return render_template('index.html', text="Please Login")
+    return render_template('login.html', text="Welcome to homepage "+session.get("mailID"))
+#@app.route("/")
+#def index():
+#    return render_template("index.html")
 @app.route("/Register", methods = ['POST', 'GET'])
 def cont():
     db.create_all()
@@ -76,7 +81,6 @@ def home():
 @app.route('/logout')
 def logout():
     try:
-        user_data = session['mailID']
         session.clear()
         var1= "Logged-Out"
         return render_template("index.html",var=var1)
