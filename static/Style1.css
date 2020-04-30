@@ -1,0 +1,26 @@
+div{
+    text-align:center;
+    border-style: groove;
+    border: width 10px;
+    box-sizing: border-box;
+    width: 30%;
+    font-size: larger;
+   margin-left: auto;
+   margin-right: auto;
+   border-color: dimgrey;
+}
+.in{ color: brown;
+}
+.row{
+    text-align: center;
+    padding: 20px;
+    background-color:black;
+    color: white;
+    border: white;
+}
+body{
+    background-image: url('ll.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
